@@ -1,7 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Index";
-}
-@model IEnumerable<Rocky.Models.ApplicationType>
+﻿@model IEnumerable<Rocky.Models.ApplicationType>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <h1>Index</h1>
@@ -13,7 +10,9 @@
             </h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="ApplicationType" asp-action="Create" class="btn btn-primary">Create New ApplicationType</a>
+            <a asp-controller="ApplicationType" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Create New ApplicationType
+            </a>
         </div>
     </div>
     <br />
@@ -31,13 +30,24 @@
                 {
                     <tr>
                         <td width="50%">@v.Name</td>
-                        <th>
-                            <form method="post" action="~/ApplicationType/Delete">                                
-                                <input type="hidden" value=@v.Id name="Id"/>
-                                <input type="hidden" value=@v.Name name="Name"/>
-                                <input type="submit" value="Delete"  />
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="ApplicationType" asp-route-Id="@v.Id" asp-action="Edit" class="btn btn-primary" mx-2>
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-controller="ApplicationType" asp-route-Id="@v.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                        @*                        <td>
+                            <form method="post" action="~/ApplicationType/Delete">
+                            <input type="hidden" value=@v.Id name="Id" />
+                            <input type="hidden" value=@v.Name name="Name" />
+                            <div class="far fa-trash-alt"><input type="submit" /></div>
                             </form>
-                        </th>
+
+                            </td>*@
                     </tr>
                 }
             </tbody>

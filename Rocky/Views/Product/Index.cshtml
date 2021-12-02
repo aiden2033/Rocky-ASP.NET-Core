@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Rocky.Models.Category>
+﻿@model IEnumerable<Rocky.Models.Product>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <h1>Index</h1>
@@ -6,12 +6,12 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Category List
+                Product List
             </h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
-                <i class="fas fa-plus"></i> &nbsp;   Create New Category
+            <a asp-action="Upsert" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp;   Create New Product
             </a>
         </div>
     </div>
@@ -21,16 +21,21 @@
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Category Name</th>
-                    <th>Display Order</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Application Type</th>
+
                 </tr>
             </thead>
             <tbody>
                 @foreach (var v in Model)
                 {
                     <tr>
-                        <td width="45%">@v.Name</td>
-                        <td width="20%">@v.DisplayOrder </td>
+                        <td width="30%">@v.Name</td>
+                        <td width="10%">@v.Price </td>
+                        <td width="20%">@v.Category.Name</td>
+                        <td width="20%">@v.ApplicationType.Name</td>
                         @*                        <td>
                             <form method="post" action="~/Category/Delete">
                             <input type="hidden" value=@v.Id name="Id" />
@@ -39,10 +44,10 @@
                             </td>*@
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
-                                <a asp-controller="Category" asp-route-Id="@v.Id" asp-action="Edit" class="btn btn-primary" mx-2>
+                                <a asp-route-Id="@v.Id" asp-action="Upsert" class="btn btn-primary" mx-2>
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a asp-controller="Category" asp-route-Id="@v.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                <a asp-route-Id="@v.Id" asp-action="Delete" class="btn btn-danger mx-2">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -55,7 +60,7 @@
     }
     else
     {
-        <p>There is no Category</p>
+        <p>There is no Product</p>
 
     }
 </div>

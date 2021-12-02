@@ -28,15 +28,18 @@ namespace Rocky.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Rocky.Models.ApplicationType newCategory)
+        public IActionResult Create(Rocky.Models.ApplicationType newApplicationType)
         {
-            _db.ApplicationType.Add(newCategory);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.ApplicationType.Add(newApplicationType);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else return View(newApplicationType);
+
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(ApplicationType applicationType)
         {
             IEnumerable<ApplicationType> list = _db.ApplicationType;
@@ -44,6 +47,31 @@ namespace Rocky.Controllers
             _db.ApplicationType.Remove(application);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0) return NotFound();
+
+            var v = _db.ApplicationType.Find(id);
+
+            if (v == null) return NotFound();
+            return View(v);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Rocky.Models.ApplicationType applicationType)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.ApplicationType.Update(applicationType);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(applicationType);
+
         }
     }
 }

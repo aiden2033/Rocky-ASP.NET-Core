@@ -15,11 +15,13 @@ namespace Rocky.Controllers
         {
             _db = db;
         }
+
         public IActionResult Index()
         {
             IEnumerable<Category> list = _db.Category;
             return View(list);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Rocky.Models.Category newCategory)
@@ -32,6 +34,7 @@ namespace Rocky.Controllers
             }
             return View(newCategory);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -47,6 +50,7 @@ namespace Rocky.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult Edit(int? id)
         {
